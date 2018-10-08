@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ConnectionStrings>
+  <add name="ShopConnection"
+         connectionString="Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=ShopDb;Integrated Security=True" />
+</ConnectionStrings>

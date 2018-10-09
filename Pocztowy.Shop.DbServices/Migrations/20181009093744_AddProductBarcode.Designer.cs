@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pocztowy.Shop.DbServices;
 
 namespace Pocztowy.Shop.DbServices.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20181009093744_AddProductBarcode")]
+    partial class AddProductBarcode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,8 +117,6 @@ namespace Pocztowy.Shop.DbServices.Migrations
                         .HasMaxLength(30);
 
                     b.Property<string>("Description");
-
-                    b.Property<float>("Weight");
 
                     b.ToTable("Product");
 

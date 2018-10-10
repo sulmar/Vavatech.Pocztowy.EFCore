@@ -28,15 +28,25 @@ namespace Pocztowy.Shop.ConsoleClient
             ContextFactory contextFactory = new ContextFactory();
             ShopContext context = contextFactory.CreateDbContext(args);
 
-            var product = context.Products.First();
+            context.Database.Migrate();
 
+            if (!context.Products.Any())
+            {
+                CreateSampleData(context);
+            }
 
-            var updateproducts = context.Products.OrderBy(p=>p.Id).Take(10).ToList();
+            for (int i = 2; i < 10; i++)
+            {
+                CreateOrder(context, $"ZA {i}");
+            }
+            
+
+            var updateproducts = context.Products.OrderBy(p => p.Id).Take(10).ToList();
 
             context.Products.RemoveRange(updateproducts);
             context.SaveChanges();
 
-            context.Dispose();
+            var product = context.Products.First();
 
             Console.WriteLine(context.Entry(product).State);
 
@@ -55,8 +65,8 @@ namespace Pocztowy.Shop.ConsoleClient
 
             Console.WriteLine(context.Entry(product).State);
 
-            
-          //  context.Products.Remove(product);
+
+            //  context.Products.Remove(product);
             Console.WriteLine(context.Entry(product).State);
 
             context.Entry(product).State = EntityState.Unchanged;
@@ -125,8 +135,24 @@ namespace Pocztowy.Shop.ConsoleClient
 
             var tuple = GetTuple2();
 
-            
 
+
+        }
+
+        private static void CreateOrder(ShopContext context, string orderNumber)
+        {
+
+            var customer = context.Customers.First();
+            var order = new Order(orderNumber, customer);
+
+            var product = context.Products.First();
+            var service = context.Services.First();
+
+            order.Details.Add(new OrderDetail(product));
+            order.Details.Add(new OrderDetail(service));
+
+            context.Orders.Add(order);
+            context.SaveChanges();
         }
 
         private static (string name, string color) GetTuple2()
@@ -144,10 +170,13 @@ namespace Pocztowy.Shop.ConsoleClient
             Generator.Generator generator = new Generator.Generator();
             var products = generator.GetProducts(100);
             var services = generator.GetServices(100);
+            var customers = generator.GetCustomers(50);
 
             // Zapis danych
             context.Products.AddRange(products);
             context.Services.AddRange(services);
+            context.Customers.AddRangeAsync(customers);
+
             context.SaveChanges();
         }
 

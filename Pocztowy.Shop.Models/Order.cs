@@ -5,7 +5,7 @@ namespace Pocztowy.Shop.Models
 {
     public class Order : Base
     {
-        protected Order()
+        public Order()
         {
             Details = new List<OrderDetail>();
 
@@ -28,9 +28,9 @@ namespace Pocztowy.Shop.Models
 
         public DateTime OrderDate { get; set; }
         public string Number { get; set; }
-        public Customer Customer { get; set; }
+        public virtual Customer Customer { get; set; }
         public DateTime? DeliveryDate { get; set; }
-        public IList<OrderDetail> Details { get; set; }
+        public virtual IList<OrderDetail> Details { get; set; }
 
 
 

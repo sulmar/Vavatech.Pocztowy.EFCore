@@ -71,6 +71,11 @@ namespace Pocztowy.Shop.DbServices
             return context.Products.Find(id);
         }
 
+        public IList<Product> GetByColor(string color)
+        {
+            return context.Products.Where(p => p.Color == color).ToList();
+        }
+
         public void Remove(int id)
         {
             Product product = new Product { Id = id };

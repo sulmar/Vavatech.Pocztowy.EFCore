@@ -32,12 +32,21 @@ namespace Pocztowy.Shop.Service
             // PM> Install-Package Microsoft.EntityFrameworkCore.SqlServer
             string connectionString = Configuration.GetConnectionString("ShopConnection");
 
+         
+
             services.AddDbContext<ShopContext>(options =>
                 options.UseSqlServer(connectionString));
 
             services.AddScoped<IProductsService, DbProductsService>();
+            services.AddScoped<IServicesService, DbServicesService>();
+            services.AddScoped<ICustomersService, DbCustomersService>();
+            services.AddScoped<IOrdersService, DbOrdersService>();
+            services.AddScoped<IOrderDetailsService, DbOrderDetailsService>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            // PM> Install-Package Microsoft.AspNetCore.Mvc.Formatters.Xml
+            services.AddMvc(options => options.RespectBrowserAcceptHeader = true)
+                .AddXmlSerializerFormatters()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +61,8 @@ namespace Pocztowy.Shop.Service
                 app.UseHsts();
             }
 
+
+            
             app.UseHttpsRedirection();
             app.UseMvc();
         }

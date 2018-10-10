@@ -17,12 +17,21 @@ namespace Pocztowy.Shop.DbServices
         public DbSet<Product> Products { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
 
         public ShopContext(DbContextOptions<ShopContext> options)
             : base(options)
         {
 
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder
+                .UseLazyLoadingProxies();
+        }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

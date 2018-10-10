@@ -1,5 +1,5 @@
 
-# Przyk³ady ze szkolenia EF Core 2.1
+# PrzykÅ‚ady ze szkolenia EF Core 2.1
 
 ## Migracje
 
@@ -14,7 +14,7 @@ Script-Migration
 Script-Migration AddProductBarcode
 ~~~
 
-* wygenerowanie skryptu pomiêdzy migracjami
+* wygenerowanie skryptu pomiï¿½dzy migracjami
 ~~~ powershell
 Script-Migration -from AddProductBarcode -to InitialCreate
 ~~~

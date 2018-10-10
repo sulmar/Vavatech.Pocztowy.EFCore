@@ -14,7 +14,7 @@ Script-Migration
 Script-Migration AddProductBarcode
 ~~~
 
-* wygenerowanie skryptu pomi�dzy migracjami
+* wygenerowanie skryptu pomiędzy migracjami
 ~~~ powershell
 Script-Migration -from AddProductBarcode -to InitialCreate
 ~~~
